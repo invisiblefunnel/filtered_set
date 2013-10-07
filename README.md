@@ -57,7 +57,7 @@ ascending_filter = lambda do |list, obj|
   end
 end
 
-set = FilteredSet.new(&ascending_filter)
+set = FilteredSet.new(nil, ascending_filter)
 set.add(10)
 set.sort #=> [10]
 set.add(9)
