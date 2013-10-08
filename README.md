@@ -65,6 +65,17 @@ set.add(11)
 set.sort #=> [10, 11]
 ```
 
+```ruby
+# Declare reusable filtered sets with inheritance
+class SymbolSet < FilteredSet
+  def initialize(enum)
+    super(enum) { |_, o| Symbol === o }
+  end
+end
+
+SymbolSet["api_key", :api_key, :api_key]  #=> #<SymbolSet: {:api_key}>
+```
+
 ## Contributing
 
 1. Fork it
