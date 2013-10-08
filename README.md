@@ -1,4 +1,4 @@
-# FilteredSet
+# FilteredSet [![Build Status](https://secure.travis-ci.org/invisiblefunnel/filtered_set.png?branch=master)](http://travis-ci.org/invisiblefunnel/filtered_set)
 
 FilteredSet is an implementation of Ruby's Set which conditionally adds objects based on custom filters. It was adapted from the incomplete [RestrictedSet][ruby-restricted-set] described in MRI's codebase. There are two main differences from RestrictedSet:
 
