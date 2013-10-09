@@ -1,5 +1,4 @@
-$:.push '../lib'
-require 'filtered_set'
+require File.expand_path('../../lib/filtered_set', __FILE__)
 require 'minitest/autorun'
 
 class TestFilter
