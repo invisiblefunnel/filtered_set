@@ -27,8 +27,11 @@ describe FilteredSet do
       expect {
         FilteredSet.new(enum, &Arity1Filter.new)
         FilteredSet.new(enum, Arity1Filter.new)
+        FilteredSet.new(nil, Arity1Filter.new)
+
         FilteredSet.new(enum, &Arity2Filter.new)
         FilteredSet.new(enum, Arity2Filter.new)
+        FilteredSet.new(nil, Arity2Filter.new)
       }.not_to raise_error
     end
 
