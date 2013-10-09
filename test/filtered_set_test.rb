@@ -61,18 +61,22 @@ class FilteredSetTest < Minitest::Test
     s = FilteredSet.new(@enum, &Arity1Filter.new)
     assert_equal nil, s.add?(1)
     assert_equal s, s.add?(42)
+    assert_equal [1,2,3,42], s.sort
 
     s = FilteredSet.new(@enum, Arity1Filter.new)
     assert_equal nil, s.add?(1)
     assert_equal s, s.add?(42)
+    assert_equal [1,2,3,42], s.sort
 
     s = FilteredSet.new(@enum, &Arity2Filter.new)
     assert_equal nil, s.add?(1)
     assert_equal s, s.add?(42)
+    assert_equal [-2,3,42], s.sort
 
     s = FilteredSet.new(@enum, Arity2Filter.new)
     assert_equal nil, s.add?(1)
     assert_equal s, s.add?(42)
+    assert_equal [-2,3,42], s.sort
   end
 
   def test_replace
