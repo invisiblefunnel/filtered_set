@@ -16,12 +16,12 @@ class FilteredSet < Set
   def initialize(enum = nil, filter = Proc.new)
     raise ArgumentError, "must provide a callable object" if !filter.respond_to?(:call)
 
-    @filter = filter
+    @filter = build_proc(filter)
     super(enum, &Identity)
   end
 
   def add(o)
-    if @filter.call(self, o)
+    if @filter.call(o)
       @hash[o] = true
     end
     self
@@ -29,12 +29,25 @@ class FilteredSet < Set
   alias << add
 
   def add?(o)
-    if include?(o) || !@filter.call(self, o)
+    if include?(o) || !@filter.call(o)
       nil
     else
       @hash[o] = true
       self
     end
+  end
+
+  private
+
+  def build_proc(callable)
+    arity = if Proc === callable
+      callable.arity
+    else
+      callable.method(:call).arity
+    end
+
+    return lambda { |obj| callable.call(self, obj) } if arity == 2
+    callable
   end
 
   VERSION = "0.1.0"
