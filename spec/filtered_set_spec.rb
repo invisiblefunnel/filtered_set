@@ -50,54 +50,54 @@ describe FilteredSet do
   end
 
   describe "#replace" do
-    let(:replacement_list) { [4, 6, -4, 5, 3, -1] }
-
     it "applies the filter " do
+      other = [4, 6, -4, 5, 3, -1]
+
       s = FilteredSet.new(enum, &one_arg_filter)
       expect(s.sort).to eq [1, 2, 3]
-      s.replace(replacement_list)
+      s.replace(other)
       expect(s.sort).to eq [3, 4, 5, 6]
 
       s = FilteredSet.new(enum, OneArgFilter.new)
       expect(s.sort).to eq [1, 2, 3]
-      s.replace(replacement_list)
+      s.replace(other)
       expect(s.sort).to eq [3, 4, 5, 6]
 
       s = FilteredSet.new(enum, &two_arg_filter)
       expect(s.sort).to eq [-2, 3]
-      s.replace(replacement_list)
+      s.replace(other)
       expect(s.sort).to eq [4, 6]
 
       s = FilteredSet.new(enum, TwoArgFilter.new)
       expect(s.sort).to eq [-2, 3]
-      s.replace(replacement_list)
+      s.replace(other)
       expect(s.sort).to eq [4, 6]
     end
   end
 
   describe "#merge" do
-    let(:merge_list) { -5..5 }
-
     it "applies the filter" do
+      other = [4, 6, -4, 5, 3, -1]
+
       s = FilteredSet.new(enum, &one_arg_filter)
       expect(s.sort).to eq [1, 2, 3]
-      s.merge(merge_list)
-      expect(s.sort).to eq [1, 2, 3, 4, 5]
+      s.merge(other)
+      expect(s.sort).to eq [1, 2, 3, 4, 5, 6]
 
       s = FilteredSet.new(enum, OneArgFilter.new)
       expect(s.sort).to eq [1, 2, 3]
-      s.merge(merge_list)
-      expect(s.sort).to eq [1, 2, 3, 4, 5]
+      s.merge(other)
+      expect(s.sort).to eq [1, 2, 3, 4, 5, 6]
 
       s = FilteredSet.new(enum, &two_arg_filter)
       expect(s.sort).to eq [-2, 3]
-      s.merge(merge_list)
-      expect(s.sort).to eq [-2, 3, 4, 5]
+      s.merge(other)
+      expect(s.sort).to eq [-2, 3, 4, 6]
 
       s = FilteredSet.new(enum, TwoArgFilter.new)
       expect(s.sort).to eq [-2, 3]
-      s.merge(merge_list)
-      expect(s.sort).to eq [-2, 3, 4, 5]
+      s.merge(other)
+      expect(s.sort).to eq [-2, 3, 4, 6]
     end
   end
 end
